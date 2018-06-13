@@ -11,11 +11,15 @@ count = 0
 checked_file = open("checked_urls.csv", "w")
 broken_file = open("broken_urls.csv", "w")
 
-checked_file.write("Sr_No." + "," + "url" + "," + "status_code" + "," + "Proper" + "\n")
-broken_file.write("url" + "," + "status_code" + "\n")
+headers_checked_file = "Sr_No." + "," + "url" + "," + "status_code" + "," + "Proper" + "\n"
+headers_broken_file = "url" + "," + "status_code" + "\n"
+
+checked_file.write(headers_checked_file)
+broken_file.write(headers_broken_file)
+
 
 def read_url(url):
-	# url = "https://www.craigslist.org/about/sites"
+
 	global count
 
 	url_request = requests.get(url)
@@ -30,8 +34,9 @@ def read_url(url):
 
 		broken_links.append(url)
 		is_ok = False
-		broken_file.write(url + "," + str(url_request.status_code) + "\n")
 
+		write_broken = url + "," + str(url_request.status_code) + "\n"
+		broken_file.write(write_broken)
 
 	print(url_request.status_code)
 	soup = BeautifulSoup(url_request.content, "html.parser")
@@ -39,7 +44,8 @@ def read_url(url):
 	url_list = soup.find_all('a', href=True)
 	checked_links.append(url)
 
-	checked_file.write(str(count) + "," + url + "," + str(url_request.status_code) + "," + str(is_ok) + "\n")
+	write_checked = str(count) + "," + url + "," + str(url_request.status_code) + "," + str(is_ok) + "\n"
+	checked_file.write(write_checked)
 
 	for link in url_list:
 
@@ -48,9 +54,6 @@ def read_url(url):
 		if new_url.domain == url_domain and link['href'] not in checked_links:
 			print(link['href'])
 			read_url(link['href'])
-
-	else:
-		pass
 
 
 if __name__ == '__main__':
