@@ -1,10 +1,14 @@
-def normalize(url, main_url_domain):
+def normalize(url, main_url_domain, extension):
 	if url[0] == "#":
 
-		url = "https://" + str(main_url_domain) + "/" + url
+		url = "https://" + main_url_domain + extension + "/" + url
 
 	elif url.startswith('//'):
 		url = "https:" + url
+
+	elif url.startswith('/'):
+		url = "https://" + main_url_domain + extension + url
+		
 
 	elif url.startswith("mailto:"):
 		url = None

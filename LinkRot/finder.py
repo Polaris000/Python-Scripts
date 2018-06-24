@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-import tldextract as t
+import sldextract as s
 import sys
+import normalizer as n
 
 
 broken_links = []
@@ -17,48 +18,56 @@ headers_broken_file = "url" + "," + "status_code" + "\n"
 checked_file.write(headers_checked_file)
 broken_file.write(headers_broken_file)
 
+main_url = ""
+
 
 def read_url(url):
 
 	global count
 
-	url_request = requests.get(url)
+	url = n.normalize(url, main_url_domain, main_url_ext)
 
-	count += 1
-	print(count)
-	url_domain = t.extract(url).domain
+	if url != None:
+		url_request = requests.get(url)
 
-	is_ok = True
+		count += 1
+		print(count)
+		url_domain = s.extract(url)["url_domain"]
 
-	if url_request.status_code >= 400:
+		is_ok = True
 
-		broken_links.append(url)
-		is_ok = False
+		if url_request.status_code >= 400:
 
-		write_broken = url + "," + str(url_request.status_code) + "\n"
-		broken_file.write(write_broken)
+			broken_links.append(url)
+			is_ok = False
 
-	print(url_request.status_code)
-	soup = BeautifulSoup(url_request.content, "html.parser")
+			write_broken = url + "," + str(url_request.status_code) + "\n"
+			broken_file.write(write_broken)
 
-	url_list = soup.find_all('a', href=True)
-	checked_links.append(url)
+		print(url_request.status_code)
+		soup = BeautifulSoup(url_request.content, "html.parser", from_encoding="iso-8859-1")
 
-	write_checked = str(count) + "," + url + "," + str(url_request.status_code) + "," + str(is_ok) + "\n"
-	checked_file.write(write_checked)
+		url_list = soup.find_all('a', href=True)
+		checked_links.append(url)
 
-	for link in url_list:
+		write_checked = str(count) + "," + url + "," + str(url_request.status_code) + "," + str(is_ok) + "\n"
+		checked_file.write(write_checked)
 
-		new_url = t.extract(link['href'])
+		if url_domain == main_url_domain:
 
-		if new_url.domain == url_domain and link['href'] not in checked_links:
-			print(link['href'])
-			read_url(link['href'])
+			for link in url_list:
+
+				if link['href'] not in checked_links:
+					print(link['href'])
+					read_url(link['href'])
 
 
 if __name__ == '__main__':
-	url = sys.argv[1]
 
-	read_url(url)
+	main_url = sys.argv[1]
+	main_url_domain = s.extract(main_url)['url_domain']
+	main_url_ext = s.extract(main_url)['url_tld']
+
+	read_url(main_url)
 	checked_file.close()
 	broken_file.close()
