@@ -27,7 +27,7 @@ def read_url(url):
 
 	url = n.normalize(url, main_url_domain, main_url_ext)
 
-	if url != None:
+	if url is not None:
 		url_request = requests.get(url)
 
 		count += 1

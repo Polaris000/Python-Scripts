@@ -8,7 +8,6 @@ def normalize(url, main_url_domain, extension):
 
 	elif url.startswith('/'):
 		url = "https://" + main_url_domain + extension + url
-		
 
 	elif url.startswith("mailto:"):
 		url = None
