@@ -27,6 +27,7 @@ def read_url(url):
 
 	url = n.normalize(url, main_url_domain, main_url_ext)
 
+	#check normalizer.py mailto: condition
 	if url is not None:
 		url_request = requests.get(url)
 

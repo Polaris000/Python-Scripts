@@ -1,4 +1,5 @@
 def extract(url):
+	#file with tld extensions
 	f = open("tld.txt", 'r')
 
 	tld_list = (f.read()).split(",\n  ")
