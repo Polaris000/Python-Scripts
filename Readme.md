@@ -1,32 +1,11 @@
 # Python Scripts
 **Repository containing Python scripts made for simplifying common tasks.** :sunglasses:
 
-## Libraries Used:
- - os
- - sys
- - openpyxl
- - hashlib
- - filecmp
- - struct
- - Crypto           (in auto-backup)
- - shutil           (in auto-backup)
- - vlc              (in alarm-clock)
- - mutagen          (in alarm-clock)
- - python-crontab   (in alarm-clock)
-
 ## Scripts:
-1. [Duplicate](https://github.com/Pro-Panda/Python-Scripts/tree/master/Duplicate): 
-   - It lists all the duplicate files present at a given path.
-   - Gives the option to remove/ not remove any of them.
-   - Uses 'filecmp' and 'os' libraries to compare files which are of the same size
-   
-2. [Excel-Attd](https://github.com/Pro-Panda/Python-Scripts/tree/master/Excel-Attd): 
-   - Fills the attendance of all BITS Students(mathced by ID) in an excel sheet.
-   - Created to fill the attendance of Students registered in CP Course at BITS Pilani
-   
-3. [Alarm-Clock](https://github.com/siddhantkhandelwal/Python-Scripts/tree/master/alarm-clock):
-   - Plays the file 'alarm.mp3' in the cwd once the alarm expires.
-   - Can be used to schedule alarms weekly, daily.
+1. [Duplicate](https://github.com/Pro-Panda/Python-Scripts/tree/master/Duplicate): List (and remove) all duplicate files from your PC
+2. [Excel-Attd](https://github.com/Pro-Panda/Python-Scripts/tree/master/Excel-Attd): Mark attendance in an Excel sheet based on BITS ID
+3. [Alarm-Clock](https://github.com/Pro-Panda/Python-Scripts/tree/master/alarm-clock): Schedule weekly and daily alarms.
+4. [Site-Blocker](https://github.com/Pro-Panda/Python-Scripts/tree/master/site-blocker): Block and unblock websites on your PC
    
 ## How to use:
  - Duplicate
@@ -57,14 +36,13 @@
      ``` 
 
 ## Improvements:
-*Anyone is welcome to contribute and improve/modify the scripts.*
+*Feel free to open an issue or send a feature pull request*
 
-- [Alarm-Clock](https://github.com/siddhantkhandelwal/Python-Scripts/tree/master/alarm-clock):
-  - CLI Version
+ - [Alarm-Clock](https://github.com/siddhantkhandelwal/Python-Scripts/tree/master/alarm-clock):
+   - CLI Version
     - Add an option to snooze the alarm.
     - Create logs specific to the script. Will help in keeping track of alarms independent of the cron-tab.
-  - GUI Version
+   - GUI Version
     - Add options to add alarms, create different frames for different tasks.
     - Improve the look of the app.
 
-*Please open an issue if you find any bugs in any of the scripts.*
